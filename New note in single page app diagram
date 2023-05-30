@@ -1,0 +1,21 @@
+sequenceDiagram
+    participant User
+    participant Browser
+    participant Server
+    participant Database
+
+    User->>Browser: Interacts with the app
+    activate Browser
+
+    Browser->>Browser: User creates a new note
+    Browser->>Server: Sends a request to create a new note
+    activate Server
+    Server-->>Database: Saves the new note in the database
+    deactivate Server
+    Database-->>Server: Confirmation of successful note creation
+    activate Server
+    Server-->>Browser: Sends a response (success)
+    deactivate Server
+    Browser->>Browser: Displays success message to the user
+
+    deactivate Browser
