@@ -1,0 +1,49 @@
+sequenceDiagram
+    participant User
+    participant Browser
+    participant Server
+
+    User->>Browser: Enters the URL to access the app
+    activate Browser
+    Browser->>Server: Requests the single-page app
+    activate Server
+    Server-->>Browser: Sends the single-page app (HTML, CSS, JS)
+    deactivate Server
+
+    Note right of Browser: Browser receives the single-page app
+
+    Browser->>Browser: Renders the app interface
+    Browser->>Server: Makes API requests for data
+    activate Server
+    Server-->>Browser: Sends JSON data (notes, etc.)
+    deactivate Server
+    Browser->>Browser: Updates the UI with the received data
+
+    Note right of Browser: User interacts with the app
+
+    Browser->>Server: Sends updated data (e.g., new note)
+    activate Server
+    Server-->>Server: Processes and stores the data
+    Server-->>Browser: Sends a response (success/failure)
+    deactivate Server
+
+    Note right of Browser: User continues interacting with the app
+
+    Browser->>Server: Requests additional data (e.g., filtered notes)
+    activate Server
+    Server-->>Browser: Sends JSON data (filtered notes)
+    deactivate Server
+    Browser->>Browser: Updates the UI with the received data
+
+    Note right of Browser: User performs further actions
+
+    Browser->>Server: Sends logout request
+    activate Server
+    Server-->>Server: Logs out the user
+    Server-->>Browser: Sends a response (success)
+    deactivate Server
+    Browser->>Browser: Redirects to the login page or shows a confirmation message
+
+    Note right of Browser: User session ends
+
+    deactivate Browser
