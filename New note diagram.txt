@@ -1,0 +1,27 @@
+sequenceDiagram
+    participant client
+    participant backend
+
+    client->>backend: GET https://myapp.com/notes
+    activate backend
+    backend-->>client: HTML document
+    deactivate backend
+
+    client->>backend: GET https://myapp.com/main.css
+    activate backend
+    backend-->>client: the CSS file
+    deactivate backend
+
+    client->>backend: GET https://myapp.com/main.js
+    activate backend
+    backend-->>client: the JavaScript file
+    deactivate backend
+
+    Note right of client: The client starts executing the JavaScript code that fetches the JSON from the backend
+
+    client->>backend: GET https://myapp.com/data.json
+    activate backend
+    backend-->>client: [{ "content": "Welcome!", "date": "2023-05-30" }, ... ]
+    deactivate backend
+
+    Note right of client: The client executes the callback function that renders the notes
